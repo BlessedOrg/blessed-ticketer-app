@@ -12,15 +12,18 @@ interface IProps {
 }
 interface UserHook {
   walletAddress: string | null;
+  smartWalletAddress: string | null;
   email: string | null;
   isLoading: boolean;
   id: string | null;
   mutate: () => Promise<any>;
   isLoggedIn: boolean;
   onLogout: () => Promise<void>;
+  userEventsPermissions: any;
 }
 const defaultState = {
   walletAddress: null,
+  smartWalletAddress: null,
   isLoading: false,
   email: null,
   id: null,
@@ -33,11 +36,23 @@ const UserContext = createContext<UserHook | undefined>(undefined);
 const UserContextProvider = ({ children }: IProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(defaultState);
+  const [userEventsPermissions, setUserEventsPermissions] = useState(null);
 
   const { data, mutate, isLoading } = useSWR(
     `${apiUrl}/private/users/me`,
     fetcherWithToken
   );
+
+  const { data: userEventsPermissionsData, mutate: mutatePermissions, isLoading: isPermissionsLoading } = useSWR(
+    `${apiUrl}/private/users/events-permissions`,
+    fetcherWithToken
+  );
+
+  useEffect(() => {
+    if (userEventsPermissionsData) {
+      setUserEventsPermissions(userEventsPermissionsData);
+    }
+  }, [userEventsPermissionsData]);
 
   useEffect(() => {
     if (!data?.error && data?.id) {
@@ -75,7 +90,8 @@ const UserContextProvider = ({ children }: IProps) => {
         mutate,
         isLoading,
         isLoggedIn,
-        onLogout
+        onLogout,
+        userEventsPermissions
       }}
     >
       {isLoading && <FixedLoading />}

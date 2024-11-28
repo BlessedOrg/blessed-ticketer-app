@@ -9,7 +9,7 @@ import { LoadingTicketsSkeleton } from "@/components/dashboard/tabs/ownedTickets
 import { AnimatePresence, motion } from "framer-motion";
 
 export function OwnedTicketsView() {
-  const { data, isLoading } = useSWR(`${apiUrl}/private/users/tickets`, fetcherWithToken);
+  const { data, isLoading } = useSWR(`${apiUrl}/private/tickets/owned`, fetcherWithToken);
   const ownedTickets = (isArray(data) ? data : []) as IEventWithTickets[];
 
   return (

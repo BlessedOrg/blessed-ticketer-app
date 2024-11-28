@@ -1,4 +1,4 @@
-export const dashboardNavItems = (isBouncer?: boolean) => [
+const basicNavItems = [
   {
     index: 0,
     id: "dashboard",
@@ -10,11 +10,11 @@ export const dashboardNavItems = (isBouncer?: boolean) => [
     id: "tickets",
     label: "My tickets",
     href: "?tab=tickets"
-  },
-  isBouncer && {
-    index: 2,
-    id: "management",
-    label: "Management",
-    href: "?tab=management"
   }
 ];
+export const dashboardNavItems = (isBouncer?: boolean) => !isBouncer ? basicNavItems : [...basicNavItems, {
+  index: 2,
+  id: "management",
+  label: "Management",
+  href: "?tab=management"
+}];

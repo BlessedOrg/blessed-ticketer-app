@@ -12,12 +12,7 @@ interface OwnedTicketRowProps {
 }
 
 export function OwnedTicketRow({ ticketData, eventData }: OwnedTicketRowProps) {
-  const { ticket, ownedTokenIds, usedTokenIds } = ticketData;
-
-  const handleViewTicket = (tokenId: number) => {
-    // Implement view ticket logic
-    console.log("View ticket", tokenId);
-  };
+  const { ticket, ownedTokenIds, usedTokenIds, qrCodesPerToken } = ticketData;
 
   return (
     <div className="py-4 first:pt-0 last:pb-0">
@@ -78,9 +73,11 @@ export function OwnedTicketRow({ ticketData, eventData }: OwnedTicketRowProps) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {ownedTokenIds.map((tokenId) => (
-            <ViewTicketModal key={tokenId} ticket={ticket} tokenId={tokenId} event={eventData} isUsed={false} />
-          ))}
+          {ownedTokenIds.map((tokenId) => {
+              const qrCode = JSON.stringify(qrCodesPerToken.find(i => i.tokenId === tokenId));
+              return <ViewTicketModal key={tokenId} ticket={ticket} tokenId={tokenId} event={eventData} isUsed={usedTokenIds.includes(tokenId)} qrCode={qrCode} />;
+            }
+          )}
         </div>
       </div>
     </div>

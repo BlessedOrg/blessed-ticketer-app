@@ -1,14 +1,17 @@
+"use client";
 import Link from "next/link";
 import { dashboardNavItems } from "./dashboardNavItems";
 import { useUserContext } from "@/store/UserContext";
 
 export const DashboardSidebarNav = ({ currentTabIndex, className }: { currentTabIndex: number; className?: string }) => {
-  const {} = useUserContext();
-  const isBouncer = true;
+  const { userEventsPermissions } = useUserContext();
+
+  const isBouncer = !!userEventsPermissions?.length;
+  const items = dashboardNavItems(isBouncer);
   return (
     <div className={`flex flex-col gap-4 lg:sticky lg:top-[6.25rem] lg:h-[calc(100vh-6.25rem)] lg:min-w-[13rem] ${className || ""}`}>
       <ul className="bg-white p-2 rounded-3xl">
-        {dashboardNavItems(isBouncer).map((nav) => {
+        {items.map((nav) => {
           const isActive = nav.index === currentTabIndex;
           return (
             <li key={nav.id}>

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { DashboardTab } from "@/components/dashboard/tabs/DashboardTab";
 import { OwnedTicketsView } from "@/components/dashboard/tabs/ownedTickets/OwnedTicketsView";
 import { ManagementTab } from "@/components/dashboard/tabs/management/ManagementTab";
+import { EventManagement } from "@/components/dashboard/tabs/management/EventManagement";
 
 const paramsIndexPerId = {
   dashboard: 0,
@@ -26,5 +27,5 @@ export const DashboardContent = ({ currentTabIndex, onTabChange }) => {
     onTabChange(activeTabIndex);
   }, [currentTab]);
 
-  return contentPerTab[currentTabIndex];
+  return contentPerTab[currentTabIndex] || <EventManagement eventId={currentTab} />;
 };
