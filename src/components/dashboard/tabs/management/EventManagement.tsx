@@ -21,7 +21,7 @@ export const EventManagement = ({ eventId }) => {
         <div className="p-6">
           <div className="flex items-center gap-3 mb-2">
             <Scan className="w-6 h-6 text-purple-600" />
-            <h1 className="text-3xl font-bold text-gray-900">{eventData?.name + " -"} Ticket Scanner</h1>
+            <h3 className="text-2xl font-bold text-gray-900">{eventData?.name + " -"} Ticket Scanner</h3>
           </div>
           <p className="text-gray-600">
             Scan QR codes to verify tickets and manage event entry

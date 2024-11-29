@@ -1,17 +1,11 @@
-"use client";
-
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, DoorOpen, MapPin } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Calendar, Clock, MapPin, Settings } from "lucide-react";
 import { format } from "date-fns";
-import { OwnedTicketRow } from "./OwnedTicketRow";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-interface OwnedEventCardProps {
-  eventWithTickets: IEventWithTickets;
-}
-
-export function OwnedEventCard({ eventWithTickets }: OwnedEventCardProps) {
-  const { event, ownedTicketsOfEvent, hasEventEntry } = eventWithTickets;
+export const EventManageCard = ({ event }) => {
   const isUpcoming = new Date(event.startsAt) > new Date();
   const isOngoing =
     new Date(event.startsAt) <= new Date() &&
@@ -29,18 +23,15 @@ export function OwnedEventCard({ eventWithTickets }: OwnedEventCardProps) {
     <Card className="overflow-hidden">
       <CardContent className="p-6">
         <div className="flex flex-col gap-6">
-          {/* Event Header */}
           <div className="flex justify-between items-start gap-4">
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <h3 className="text-2xl font-bold text-gray-900">{event.name}</h3>
                 {getEventStatus()}
-                {hasEventEntry && (
-                  <Badge variant="outline" className="border-green-500 text-green-600 uppercase font-bold">
-                    <DoorOpen className="w-3 h-3 mr-1" />
-                    Entered
-                  </Badge>
-                )}
+                <Badge variant="outline" className="border-green-500 text-green-600 uppercase font-bold">
+                  <Settings className="w-3 h-3 mr-1" />
+                  Bouncer
+                </Badge>
               </div>
               <p className="text-gray-600 mb-4">{event.description}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-500">
@@ -71,23 +62,16 @@ export function OwnedEventCard({ eventWithTickets }: OwnedEventCardProps) {
                 )}
               </div>
             </div>
-          </div>
+            <Button className="self-end" variant="green" asChild>
+              <Link href={`/?tab=${event.id}`} className="flex gap-2 items-center">
+                <Settings />
+                <p>Manage</p>
+              </Link>
+            </Button>
 
-          {/* Tickets List */}
-          <div className="space-y-4">
-            <h3 className="font-medium text-gray-900">Your Tickets</h3>
-            <div className="divide-y">
-              {ownedTicketsOfEvent.map((ticketData) => (
-                <OwnedTicketRow
-                  key={ticketData.ticket.id}
-                  ticketData={ticketData}
-                  eventData={event}
-                />
-              ))}
-            </div>
           </div>
         </div>
       </CardContent>
     </Card>
   );
-}
+};

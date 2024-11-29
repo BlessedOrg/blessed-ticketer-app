@@ -23,7 +23,7 @@ export function OwnedTicketsView() {
           <CardContent className="p-6">
             <div className="flex items-center gap-3 mb-2">
               <Ticket className="w-6 h-6 text-purple-600" />
-              <h1 className="text-3xl font-bold text-gray-900">My Tickets</h1>
+              <h3 className="text-2xl font-bold text-gray-900">My Tickets</h3>
             </div>
             <p className="text-gray-600">
               View and manage all your event tickets in one place
@@ -75,7 +75,7 @@ export function OwnedTicketsView() {
                       No tickets yet
                     </h3>
                     <p className="text-gray-500">
-                      You haven't purchased any tickets for upcoming events
+                      You haven't purchased or received any tickets for upcoming events
                     </p>
                   </div>
                 </Card>

@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { DashboardTab } from "@/components/dashboard/tabs/DashboardTab";
 import { OwnedTicketsView } from "@/components/dashboard/tabs/ownedTickets/OwnedTicketsView";
-import { ManagementTab } from "@/components/dashboard/tabs/management/ManagementTab";
+import { ListOfEventsToManage } from "@/components/dashboard/tabs/management/events/ListOfEventsToManage";
 import { EventManagement } from "@/components/dashboard/tabs/management/EventManagement";
 
 const paramsIndexPerId = {
@@ -15,12 +15,12 @@ const paramsIndexPerId = {
 const contentPerTab = {
   0: <DashboardTab />,
   1: <OwnedTicketsView />,
-  2: <ManagementTab />
+  2: <ListOfEventsToManage />
 };
 
 export const DashboardContent = ({ currentTabIndex, onTabChange }) => {
   const searchParams = useSearchParams();
-  const currentTab = searchParams.get("tab") || "dashboard";
+  const currentTab = searchParams.get("tab") || "tickets";
 
   useEffect(() => {
     const activeTabIndex = paramsIndexPerId[currentTab];

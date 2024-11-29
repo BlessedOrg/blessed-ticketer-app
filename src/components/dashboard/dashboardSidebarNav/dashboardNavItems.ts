@@ -1,10 +1,10 @@
 const basicNavItems = [
-  {
-    index: 0,
-    id: "dashboard",
-    label: "Dashboard",
-    href: "?tab=dashboard"
-  },
+  // {
+  //   index: 0,
+  //   id: "dashboard",
+  //   label: "Dashboard",
+  //   href: "?tab=dashboard"
+  // },
   {
     index: 1,
     id: "tickets",
