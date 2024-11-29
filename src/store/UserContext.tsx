@@ -3,9 +3,9 @@ import React, { createContext, ReactNode, useContext, useEffect, useState } from
 import useSWR from "swr";
 import { apiUrl } from "@/variables/varaibles";
 import { fetcherWithToken } from "@/requests/requests";
+import { deleteCookie } from "cookies-next";
 import { FixedLoading } from "@/components/ui/fixed-loading";
 import AuthModalContent from "@/components/navigation/authModal/AuthModal";
-import { deleteCookie } from "cookies-next";
 
 interface IProps {
   children: ReactNode;
@@ -70,7 +70,7 @@ const UserContextProvider = ({ children }: IProps) => {
     if (!!res?.message) {
       setUserData(defaultState);
       setIsLoggedIn(false);
-      deleteCookie("accessToken");
+      deleteCookie("bouncerToken");
 
       window.location.reload();
     }
@@ -94,9 +94,9 @@ const UserContextProvider = ({ children }: IProps) => {
         userEventsPermissions
       }}
     >
-      {isLoading && <FixedLoading />}
+      {isLoading && !isLoggedIn && <FixedLoading />}
       {!isLoading && isLoggedIn && children}
-      {!isLoggedIn && !isLoading && <AuthModalContent authType="onboarding" isOpen={true} />}
+      {!isLoggedIn && <AuthModalContent authType="onboarding" isOpen={true} />}
     </UserContext.Provider>
   );
 };

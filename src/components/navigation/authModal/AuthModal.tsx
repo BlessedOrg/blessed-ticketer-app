@@ -88,7 +88,7 @@ const AuthModalContent = ({
           type: "error"
         });
       } else {
-        setCookie("accessToken", res?.accessToken);
+        setCookie("bouncerToken", res?.accessToken);
         window.location.reload();
         toast("Successfully logged in!", { type: "success" });
       }
