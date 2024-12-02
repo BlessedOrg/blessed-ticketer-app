@@ -44,7 +44,7 @@ const UserContextProvider = ({ children }: IProps) => {
   );
 
   const { data: userEventsPermissionsData, mutate: mutatePermissions, isLoading: isPermissionsLoading } = useSWR(
-    `${apiUrl}/private/users/events-permissions`,
+    `${apiUrl}/private/users/events-bouncer`,
     fetcherWithToken
   );
 
