@@ -15,7 +15,7 @@ export const EventManageCard = ({ event }) => {
   const getEventStatus = () => {
     if (isOngoing) return <Badge className="bg-green-500">Ongoing</Badge>;
     if (isUpcoming) return <Badge className="bg-blue-500">Upcoming</Badge>;
-    if (isPast) return <Badge className="bg-gray-500">Past</Badge>;
+    if (isPast) return <Badge className="bg-black text-white">Past</Badge>;
     return null;
   };
 
