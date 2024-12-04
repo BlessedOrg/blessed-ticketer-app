@@ -41,7 +41,6 @@ interface IOwnedTicketOfEvent {
   ticket: ITicket;
   usedTokenIds: number[];
   ownedTokenIds: number[];
-  qrCodesPerToken: { code: string, tokenId: number, eventId: string, ticketId: string }[];
 }
 
 interface IEventWithTickets {
