@@ -76,7 +76,7 @@ export function OwnedTicketRow({ ticketData, eventData }: OwnedTicketRowProps) {
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:items-center gap-2 lg:flex-row">
+        <div className="flex flex-col md:items-center gap-2 lg:flex-row max-w-fit overflow-x-auto">
           {ownedTokenIds.map((tokenId) => {
               return <TokenIdModal key={`${ticketData.ticket.id}` + tokenId} ticket={ticket} tokenId={tokenId} event={eventData} isUsed={usedTokenIds.includes(tokenId)} />;
             }

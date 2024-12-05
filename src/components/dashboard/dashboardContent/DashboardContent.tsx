@@ -27,5 +27,7 @@ export const DashboardContent = ({ currentTabIndex, onTabChange }) => {
     onTabChange(activeTabIndex);
   }, [currentTab]);
 
-  return contentPerTab[currentTabIndex] || <EventManagement eventId={currentTab} />;
+  return <div className="flex flex-col gap-4 w-full min-w-0">
+    {contentPerTab[currentTabIndex] || <EventManagement eventId={currentTab} />}
+  </div>;
 };

@@ -9,11 +9,12 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col items-center">
       <Suspense>
         <Navigation />
       </Suspense>
       <Dashboard />
+
     </div>
   );
 }

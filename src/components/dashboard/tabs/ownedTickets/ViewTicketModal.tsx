@@ -95,7 +95,7 @@ export function ViewTicketModal({
     return (
       <>
         <QRCodeSVG
-          value={qrCodePayload?.code}
+          value={JSON?.stringify?.(qrCodePayload)}
           size={200}
           level={"H"}
           includeMargin={false}

@@ -46,22 +46,31 @@ export function QRScanner() {
         const controls = await reader.current.decodeFromConstraints(
           constraints,
           videoRef.current,
-          (result, error) => {
+          (result, errorInstance) => {
             if (result) {
               try {
                 const ticketData = result.getText();
-                setScannedData(JSON.parse(ticketData));
-                setIsScanning(false);
-                stopScanning();
+                const payload = JSON.parse(ticketData);
+
+                if (payload?.ticketId) {
+                  setScannedData(payload);
+                  stopScanning();
+                } else {
+                  setError("Invalid QR code format");
+                  stopScanning();
+                }
               } catch (e) {
                 setError("Invalid QR code format");
+                stopScanning();
               }
             }
-            if (error && error.message !== "No MultiFormat Readers were able to detect the code.") {
-              console.error("Scanning error:", error);
+
+            if (errorInstance && errorInstance.message !== "No MultiFormat Readers were able to detect the code.") {
+              console.error("Scanning error:", errorInstance);
             }
           }
         );
+
         controlsRef.current = controls;
       }
     } catch (err) {
@@ -79,8 +88,8 @@ export function QRScanner() {
     } else {
       setError("An unknown error occurred");
     }
-    setIsScanning(false);
-    setEnabledScanner(false);
+
+    stopScanning();
   };
 
   const stopScanning = () => {
@@ -100,9 +109,12 @@ export function QRScanner() {
   };
 
   const resetScanner = () => {
+    stopScanning();
     setScannedData(null);
-    setError(null);
-    startScanning();
+
+    setTimeout(() => {
+      startScanning();
+    }, 100);
   };
 
   const handleDeviceSelect = (deviceId: string) => {

@@ -26,7 +26,7 @@ export function OwnedEventCard({ eventWithTickets }: OwnedEventCardProps) {
   };
 
   return (
-    <Card className="overflow-hidden">
+    <Card>
       <CardContent className="p-6">
         <div className="flex flex-col gap-6">
           {/* Event Header */}

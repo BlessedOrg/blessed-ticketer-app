@@ -8,7 +8,7 @@ import { useUserContext } from "@/store/UserContext";
 export const EventManagement = ({ eventId }) => {
   const { userEventsPermissions } = useUserContext();
 
-  const eventData = userEventsPermissions.find((event) => event.id === eventId);
+  const eventData = userEventsPermissions?.find((event) => event.id === eventId);
   return (
     <div className="px-4 w-full flex-col flex gap-4">
       <Button variant="green" asChild>

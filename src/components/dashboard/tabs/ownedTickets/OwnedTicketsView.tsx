@@ -13,7 +13,7 @@ export function OwnedTicketsView() {
   const ownedTickets = (isArray(data) ? data : []) as IEventWithTickets[];
 
   return (
-    <div className="container mx-auto px-4 max-w-5xl">
+    <div className="px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
