@@ -17,11 +17,13 @@ import { fetcher } from "@/requests/requests";
 export const AuthModal = ({
   authType = "login",
   label = "Log in",
-  className
+  className,
+  defaultOpen
 }: {
   authType?: "onboarding" | "login";
   label?: string;
   className?: string;
+  defaultOpen?: boolean
 }) => {
   return (
     <Suspense>
@@ -29,6 +31,7 @@ export const AuthModal = ({
         authType={authType}
         label={label}
         className={className}
+        isOpen={defaultOpen}
       />
     </Suspense>
   );

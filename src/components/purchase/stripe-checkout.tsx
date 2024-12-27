@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { createStripeCheckout } from "@/actions";
-import { useRouter } from "next/navigation";
 
-export default function StripeCheckoutButton({ userId, ticketId }: { userId: string, ticketId: string }) {
+import { useRouter } from "next/navigation";
+import { fetcherWithToken } from "@/requests/requests";
+import { apiUrl } from "@/variables/varaibles";
+
+export default function StripeCheckoutButton({ userId, ticketId, eventId }: { userId: string, ticketId: string, eventId: string }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -13,7 +15,14 @@ export default function StripeCheckoutButton({ userId, ticketId }: { userId: str
     try {
       setLoading(true);
 
-      const session = await createStripeCheckout(userId, ticketId)
+      const session = await fetcherWithToken(`${apiUrl}/private/tickets/checkout-session/${ticketId}`, {
+        method: "POST",
+        body: JSON.stringify({
+          ticketId,
+          userId,
+          eventSlug: eventId
+        })
+      });
 
       if (session.url) {
         router.push(session.url);
