@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import useSWR from "swr";
-import { apiUrl } from "@/variables/varaibles";
+import { apiUrl } from "@/variables/envVaraibles";
 import { fetcherWithToken } from "@/requests/requests";
 import { deleteCookie } from "cookies-next";
 import { FixedLoading } from "@/components/ui/fixed-loading";

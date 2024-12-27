@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { setCookie } from "cookies-next";
-import { apiUrl } from "@/variables/varaibles";
+import { apiUrl } from "@/variables/envVaraibles";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -17,11 +17,13 @@ import { fetcher } from "@/requests/requests";
 export const AuthModal = ({
   authType = "login",
   label = "Log in",
-  className
+  className,
+  defaultOpen
 }: {
   authType?: "onboarding" | "login";
   label?: string;
   className?: string;
+  defaultOpen?: boolean
 }) => {
   return (
     <Suspense>
@@ -29,6 +31,7 @@ export const AuthModal = ({
         authType={authType}
         label={label}
         className={className}
+        isOpen={defaultOpen}
       />
     </Suspense>
   );

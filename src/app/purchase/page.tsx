@@ -1,14 +1,14 @@
 import { Metadata } from "next";
+import { EmailLoginForm } from "@/components/purchase/email-login-form";
 
 export const metadata: Metadata = {
   title: "Blessed.fan | fund wallet"
 };
 
 export default async function PurchasePage() {
-  // const ticketDetails = await getTicketDetails();
-  // console.log("🎫 ticketDetails: ", ticketDetails)
-
-  return (<div></div>
-    // <EmailLoginForm ticketDetails={ticketDetails} />
+  return (
+    <div>
+      <EmailLoginForm />
+    </div>
   );
 }

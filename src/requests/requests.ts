@@ -15,7 +15,6 @@ export const fetcher = async (url: string, options?: RequestInit | undefined) =>
 export const fetcherWithToken = async (url: string, options?: RequestInit | undefined) => {
   const accessToken = getCookie("bouncerToken");
   const { headers, ...rest } = options || {};
-
   const res = await fetch(url, {
     ...rest,
     headers: {

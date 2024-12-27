@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
 import useSWR from "swr";
 import { fetcherWithToken } from "@/requests/requests";
-import { apiUrl } from "@/variables/varaibles";
+import { apiUrl } from "@/variables/envVaraibles";
 
 interface ViewTicketModalProps {
   ticket: ITicket;
