@@ -7,7 +7,7 @@ import { CheckCircle, RotateCcw, Ticket, XCircle } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { fetcherWithToken } from "@/requests/requests";
-import { apiUrl } from "@/variables/varaibles";
+import { apiUrl } from "@/variables/envVaraibles";
 
 interface ScannedTicketInfoProps {
   data: {

@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Ticket } from "lucide-react";
 import { OwnedEventCard } from "@/components/dashboard/tabs/ownedTickets/OwnedEventCard";
 import useSWR from "swr";
-import { apiUrl } from "@/variables/varaibles";
+import { apiUrl } from "@/variables/envVaraibles";
 import { fetcherWithToken } from "@/requests/requests";
 import { isArray } from "lodash";
 import { LoadingTicketsSkeleton } from "@/components/dashboard/tabs/ownedTickets/LoadingTicketsSkeleton";
