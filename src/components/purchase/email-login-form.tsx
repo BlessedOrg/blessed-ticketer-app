@@ -1,34 +1,61 @@
 "use client";
 import StripeCheckoutButton from "@/components/purchase/stripe-checkout";
 import CardWrapper from "@/components/card-wrapper";
-import { fetcherWithToken } from "@/requests/requests";
-import { apiUrl } from "@/variables/varaibles";
-import useSWR from "swr";
 import { useUserContext } from "@/store/UserContext";
 import { AuthModal } from "@/components/navigation/authModal/AuthModal";
+import { getCookie } from "cookies-next";
+import { getTicketDetails } from "@/actions/actions";
+import { useEffect, useState } from "react";
 
-export function EmailLoginForm() {
+export async function EmailLoginForm() {
   const { isLoggedIn, id } = useUserContext();
+  const [ticketDetails, setTicketDetails] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const ticketId = "cm4u5xrsg000baefio36tbdb2";
-  const eventId = "cm4u5xhkq0001aefirdngla1m";
+  useEffect(() => {
+    const fetchTicketDetails = async () => {
+      try {
+        const accessToken = getCookie("bouncerToken");
+        if (!accessToken) {
+          throw new Error("No access token found");
+        }
 
-  const { data: ticketDetails } = useSWR(`${apiUrl}/private/tickets/${eventId}/${ticketId}/purchase-details`, fetcherWithToken);
+        const ticketDetails = await getTicketDetails(accessToken);
+        console.log("🔮 ticketDetails: ", ticketDetails)
+        setTicketDetails(ticketDetails);
+      } catch (err) {
+        console.error("🚨Error fetching ticket details:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const title = `Buy a ticket for ${ticketDetails?.Event?.name}`;
-  const description = isLoggedIn
+    fetchTicketDetails();
+  }, []);
+
+  const title = isLoggedIn && !loading && ticketDetails !== null
+    ? `Buy a ticket for ${ticketDetails?.Event?.name}`
+    : error
+      ? `Error occurred. Please, contact the admin and check below for the details.`
+      : null
+  const description = isLoggedIn && !loading && ticketDetails !== null
     ? "After clicking button bellow you will be redirected to the payment provider."
-    : "";
+    : error
+      ? error
+      : null;
+
+  if (!isLoggedIn) {
+    return <AuthModal />
+  }
 
   return (
     <CardWrapper title={title} description={description}>
-      {!isLoggedIn ? (
-        <>
-          <AuthModal />
-        </>
-      ) : (
-        <StripeCheckoutButton userId={id!} ticketId={ticketDetails?.id} eventId={ticketDetails?.eventId} />
-      )}
+      {!loading && ticketDetails !== null
+        ? <StripeCheckoutButton userId={id!} ticketId={ticketDetails?.id} eventId={ticketDetails?.eventId} />
+        : null
+      }
     </CardWrapper>
   );
 }
