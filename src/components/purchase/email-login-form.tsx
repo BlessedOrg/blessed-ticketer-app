@@ -7,7 +7,7 @@ import { getCookie } from "cookies-next";
 import { getTicketDetails } from "@/actions/actions";
 import { useEffect, useState } from "react";
 
-export async function EmailLoginForm() {
+export function EmailLoginForm() {
   const { isLoggedIn, id } = useUserContext();
   const [ticketDetails, setTicketDetails] = useState(null);
   const [error, setError] = useState(null);
@@ -20,9 +20,7 @@ export async function EmailLoginForm() {
         if (!accessToken) {
           throw new Error("No access token found");
         }
-
         const ticketDetails = await getTicketDetails(accessToken);
-        console.log("🔮 ticketDetails: ", ticketDetails)
         setTicketDetails(ticketDetails);
       } catch (err) {
         console.error("🚨Error fetching ticket details:", err);
