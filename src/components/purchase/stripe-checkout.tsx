@@ -1,10 +1,9 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-
 import { useRouter } from "next/navigation";
 import { fetcherWithToken } from "@/requests/requests";
-import { apiUrl } from "@/variables/envVaraibles";
+import { apiUrl } from "@/variables/envVariables";
 
 export default function StripeCheckoutButton({ userId, ticketId, eventId }: { userId: string, ticketId: string, eventId: string }) {
   const [loading, setLoading] = useState(false);
@@ -38,7 +37,7 @@ export default function StripeCheckoutButton({ userId, ticketId, eventId }: { us
   };
 
   return (
-    <Button onClick={handleSubmit} disabled={loading} className="w-full">
+    <Button onClick={handleSubmit} disabled={loading} className="w-full" variant="green">
       Pay with Stripe
     </Button>
   );
