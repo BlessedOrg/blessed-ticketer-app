@@ -25,7 +25,7 @@ export function EmailLoginForm() {
         setTicketDetails(ticketDetails);
       } catch (err) {
         console.error("🚨Error fetching ticket details:", err);
-        setError(err.message);
+        setError(err.message || "An unknown error occurred");
       } finally {
         setLoading(false);
       }
@@ -49,7 +49,7 @@ export function EmailLoginForm() {
     return <AuthModal />
   }
 
-  if (isLoggedIn && loading) {
+  if (loading) {
     return <FixedLoading />
   }
 

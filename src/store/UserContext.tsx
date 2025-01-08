@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import useSWR from "swr";
 import { apiUrl } from "@/variables/envVariables";
 import { fetcherWithToken } from "@/requests/requests";
@@ -43,7 +43,7 @@ const UserContextProvider = ({ children }: IProps) => {
     fetcherWithToken
   );
 
-  const { data: userEventsPermissionsData, mutate: mutatePermissions, isLoading: isPermissionsLoading } = useSWR(
+  const { data: userEventsPermissionsData } = useSWR(
     `${apiUrl}/private/users/events-bouncer`,
     fetcherWithToken
   );
