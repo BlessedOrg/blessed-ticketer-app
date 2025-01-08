@@ -6,6 +6,7 @@ import { AuthModal } from "@/components/navigation/authModal/AuthModal";
 import { getCookie } from "cookies-next";
 import { getTicketDetails } from "@/actions/actions";
 import { useEffect, useState } from "react";
+import { FixedLoading } from "@/components/ui/fixed-loading";
 
 export function EmailLoginForm() {
   const { isLoggedIn, id } = useUserContext();
@@ -46,6 +47,10 @@ export function EmailLoginForm() {
 
   if (!isLoggedIn) {
     return <AuthModal />
+  }
+
+  if (isLoggedIn && loading) {
+    return <FixedLoading />
   }
 
   return (
